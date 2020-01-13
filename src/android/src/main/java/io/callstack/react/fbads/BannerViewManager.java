@@ -1,7 +1,7 @@
 package io.callstack.react.fbads;
 
 
-import androidx.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 import com.facebook.ads.AdSize;
 import com.facebook.react.bridge.ReactContext;
@@ -12,8 +12,6 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
 import java.util.Map;
-
-import android.util.Log;
 
 public class BannerViewManager extends SimpleViewManager<BannerView> {
 
