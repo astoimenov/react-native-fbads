@@ -1,7 +1,7 @@
 package io.callstack.react.fbads;
 
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.facebook.ads.AdSize;
 import com.facebook.react.bridge.ReactContext;
@@ -12,6 +12,8 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
 import java.util.Map;
+
+import android.util.Log;
 
 public class BannerViewManager extends SimpleViewManager<BannerView> {
 
@@ -31,11 +33,11 @@ public class BannerViewManager extends SimpleViewManager<BannerView> {
       case 90:
         adSize = AdSize.BANNER_HEIGHT_90;
         break;
-      case 250:
-        adSize = AdSize.RECTANGLE_HEIGHT_250;
       case 50:
-      default:
         adSize = AdSize.BANNER_HEIGHT_50;
+      case 250:
+      default:
+        adSize = AdSize.RECTANGLE_HEIGHT_250;
     }
     view.setSize(adSize);
   }
@@ -51,7 +53,9 @@ public class BannerViewManager extends SimpleViewManager<BannerView> {
       "onAdPress",
       MapBuilder.of("registrationName", "onAdPress"),
       "onAdError",
-      MapBuilder.of("registrationName", "onAdError")
+      MapBuilder.of("registrationName", "onAdError"),
+      "onLoggingImpression",
+      MapBuilder.of("registrationName", "onLoggingImpression")
     );
   }
 
