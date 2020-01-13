@@ -31,18 +31,19 @@
   if (!_placementId || !_size) {
     return;
   }
-  
+
   FBAdSize fbAdSize = [self fbAdSizeForHeight:_size];
-  
+
   FBAdView *adView = [[FBAdView alloc] initWithPlacementID:_placementId
                                                     adSize:fbAdSize
                                         rootViewController:RCTPresentedViewController()];
-  
+
   adView.frame = CGRectMake(0, 0, adView.bounds.size.width, adView.bounds.size.height);
+  adView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   adView.delegate = self;
-  
+
   [adView loadAd];
-  
+
   [self addSubview:adView];
 }
 
@@ -60,12 +61,20 @@
 
 # pragma mark - FBAdViewDelegate
 
-- (void)adViewDidClick:(FBAdView *)adView {
-  _onAdPress(nil);
+- (void)adViewDidClick:(FBAdView *)adView
+{
+  if (_onAdPress) {
+    _onAdPress(nil);
+  }
 }
 
-- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
-  _onAdError(RCTJSErrorFromNSError(error));
+- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error
+{
+  if (_onAdError) {
+    _onAdError(RCTJSErrorFromNSError(error));
+  } else {
+    RCTMakeAndLogError(error.localizedDescription, nil, error.userInfo);
+  }
 }
 
 - (void)adViewDidFinishHandlingClick:(FBAdView *)adView {}
